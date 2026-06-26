@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  /* 簡易樣式 */
+  .slider {
+    width: 80%;
+    max-width: 500px;
+    height: 100%;
+    max-height:500px;
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* 讓圖片在上面，按鈕在下面 */
+    justify-content: center; /* 垂直置中 */
+    align-items: center;     /* 水平置中 */
+  }
+  img {
+    height: 80%;
+    border-radius: 8px;
+    object-fit: contain;
+    align-items: center;
+    justify-content: center;
+    display: none; /* 預設隱藏所有圖片 */
+  }
+  img.active {
+    display: block; /* 只顯示當前圖片 */
+  }
+.button-group {
+  display: flex;       /* 讓按鈕橫向排列 */
+  flex-direction: row; /* 確保是左右平行 */
+  gap: 20px;           /* 設定按鈕之間的間距，不用自己調 margin */
+  margin-top: 15px;    /* 讓按鈕跟圖片保持一點距離 */
+}  
+button {
+    cursor: pointer;
+    padding: 8px 16px;
+    margin-top: 15px;
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="slider">
+  <img src="https://three-trumpet-2cb.notion.site/image/attachment%3A6871c5f1-196c-4e2f-bd19-727a5f39f69a%3AIMG_0489.jpeg?table=block&id=38160c01-a26b-80e3-bc7d-e0509b15241a&spaceId=305695b6-5ba3-4ad0-ab4b-01c7917ccad1&width=870&userId=&cache=v2&imgBuildSrc=requestProxiedImageUrl" class="active">
+  <img src="https://three-trumpet-2cb.notion.site/image/attachment%3A671209db-c5f8-4052-812c-03c0a33e03c9%3AIMG_6951.jpeg?table=block&id=38160c01-a26b-80ac-8dc4-cb454bef2387&spaceId=305695b6-5ba3-4ad0-ab4b-01c7917ccad1&width=870&userId=&cache=v2&imgBuildSrc=requestProxiedImageUrl">
+  <img src="https://three-trumpet-2cb.notion.site/image/attachment%3Acc006414-0f13-4afc-a71d-2427e515babb%3AIMG_7240.jpeg?table=block&id=38160c01-a26b-8000-b63a-e08aacd203e1&spaceId=305695b6-5ba3-4ad0-ab4b-01c7917ccad1&width=870&userId=&cache=v2&imgBuildSrc=requestProxiedImageUrl">
+  
+<div class=".button-group">
+  <button onclick="changeSlide(-1)"> ◀︎ </button>
+  <button onclick="changeSlide(1)"> ▶︎ </button>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.slider img');
+
+  function changeSlide(direction) {
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + direction + slides.length) % slides.length;
+    slides[currentIndex].classList.add('active');
+  }
+</script>
+
+</body>
+</html>
