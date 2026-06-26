@@ -1,44 +1,70 @@
 <!DOCTYPE html>
+```html
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <style>
-  /* 簡易樣式 */
-  .slider {
-    width: 80%;
-    max-width: 500px;
-    height: 80%;
-    max-height:500px;
-    position: relative;
-    text-align: center;
+  /* 讓網頁最外層預設就是透明的，且清除內建邊距 */
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; /* 背景無色 */
     display: flex;
-    flex-direction: column; /* 讓圖片在上面，按鈕在下面 */
-    justify-content: center; /* 垂直置中 */
-    align-items: center;     /* 水平置中 */
-  }
-  img {
-    height: 80%;
-    border-radius: 8px;
-    object-fit: contain;
-    align-items: center;
     justify-content: center;
-    display: none; /* 預設隱藏所有圖片 */
+    align-items: center;
   }
+
+  /* 輪播圖總容器 */
+  .slider {
+    width: 100%;
+    max-width: 500px;
+    height: 100%;
+    max-height: 500px;
+    background-color: transparent; /* 背景無色 */
+    display: flex;
+    flex-direction: column;   /* 圖片在上面，按鈕在下面 */
+    justify-content: center;  /* 垂直置中 */
+    align-items: center;      /* 水平置中 */
+    box-sizing: border-box;
+  }
+
+  /* 圖片預設樣式 */
+  img {
+    max-width: 100%;
+    height: 80%;             /* 佔據容器 80% 的高度 */
+    border-radius: 8px;
+    object-fit: contain;     /* 保持比例置中，不裁切 */
+    display: none;           /* 預設隱藏所有圖片 */
+  }
+
+  /* 當前顯示的圖片 */
   img.active {
-    display: block; /* 只顯示當前圖片 */
+    display: block; 
   }
-.button-group {
-  display: flex;       /* 讓按鈕橫向排列 */
-  flex-direction: row; /* 確保是左右平行 */
-  gap: 20px;           /* 設定按鈕之間的間距，不用自己調 margin */
-  margin-top: 15px;    /* 讓按鈕跟圖片保持一點距離 */
-}  
-button {
+
+  /* 按鈕群組容器（已修正命名的點） */
+  .button-group {
+    display: flex;           /* 讓按鈕橫向排列 */
+    flex-direction: row;     /* 確保是左右平行 */
+    gap: 20px;               /* 按鈕之間的間距 */
+    margin-top: 15px;        /* 與圖片保持距離 */
+  }  
+
+  /* 按鈕基本樣式 */
+  button {
     cursor: pointer;
     padding: 8px 16px;
-    margin-top: 15px;
     background: #f1f1f1;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  button:hover {
+    background: #e1e1e1;    /* 滑鼠懸停時變深色，增加互動感 */
   }
 </style>
 </head>
@@ -49,9 +75,10 @@ button {
   <img src="https://three-trumpet-2cb.notion.site/image/attachment%3A671209db-c5f8-4052-812c-03c0a33e03c9%3AIMG_6951.jpeg?table=block&id=38160c01-a26b-80ac-8dc4-cb454bef2387&spaceId=305695b6-5ba3-4ad0-ab4b-01c7917ccad1&width=870&userId=&cache=v2&imgBuildSrc=requestProxiedImageUrl">
   <img src="https://three-trumpet-2cb.notion.site/image/attachment%3Acc006414-0f13-4afc-a71d-2427e515babb%3AIMG_7240.jpeg?table=block&id=38160c01-a26b-8000-b63a-e08aacd203e1&spaceId=305695b6-5ba3-4ad0-ab4b-01c7917ccad1&width=870&userId=&cache=v2&imgBuildSrc=requestProxiedImageUrl">
   
-<div class=".button-group">
-  <button onclick="changeSlide(-1)"> ◀︎ </button>
-  <button onclick="changeSlide(1)"> ▶︎ </button>
+  <div class="button-group">
+    <button onclick="changeSlide(-1)"> ◀︎ </button>
+    <button onclick="changeSlide(1)"> ▶︎ </button>
+  </div>
 </div>
 
 <script>
@@ -59,6 +86,7 @@ button {
   const slides = document.querySelectorAll('.slider img');
 
   function changeSlide(direction) {
+    if (slides.length === 0) return; // 安全機制：防止沒抓到圖片報錯
     slides[currentIndex].classList.remove('active');
     currentIndex = (currentIndex + direction + slides.length) % slides.length;
     slides[currentIndex].classList.add('active');
