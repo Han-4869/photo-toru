@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-```html
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -31,10 +29,12 @@
     box-sizing: border-box;
   }
 
-  /* 圖片預設樣式 */
+  /* 圖片固定尺寸與自動縮比設定 */
   img {
-    max-width: 100%;
-    height: 80%;             /* 佔據容器 80% 的高度 */
+    width: 100%;             /* 讓圖片寬度可隨容器縮小 */
+    height: auto;            /* 高度依比例自動計算，防止變形 */
+    max-width: 450px;        /* 限制圖片的最大固定寬度 */
+    max-height: 350px;       /* 限制圖片的最大固定高度 */
     border-radius: 8px;
     object-fit: contain;     /* 保持比例置中，不裁切 */
     display: none;           /* 預設隱藏所有圖片 */
@@ -45,12 +45,12 @@
     display: block; 
   }
 
-  /* 按鈕群組容器（已修正命名的點） */
+  /* 按鈕群組容器 */
   .button-group {
     display: flex;           /* 讓按鈕橫向排列 */
     flex-direction: row;     /* 確保是左右平行 */
     gap: 20px;               /* 按鈕之間的間距 */
-    margin-top: 15px;        /* 與圖片保持距離 */
+    margin-top: 20px;        /* 與圖片保持適當距離 */
   }  
 
   /* 按鈕基本樣式 */
@@ -64,7 +64,7 @@
   }
 
   button:hover {
-    background: #e1e1e1;    /* 滑鼠懸停時變深色，增加互動感 */
+    background: #e1e1e1;    /* 滑鼠懸停時變深色 */
   }
 </style>
 </head>
@@ -86,7 +86,7 @@
   const slides = document.querySelectorAll('.slider img');
 
   function changeSlide(direction) {
-    if (slides.length === 0) return; // 安全機制：防止沒抓到圖片報錯
+    if (slides.length === 0) return; 
     slides[currentIndex].classList.remove('active');
     currentIndex = (currentIndex + direction + slides.length) % slides.length;
     slides[currentIndex].classList.add('active');
